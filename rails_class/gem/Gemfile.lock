@@ -1,0 +1,15 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    curses (1.0.1)
+    text2048 (0.10.2)
+      curses (~> 1.0.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  text2048
+
+BUNDLED WITH
+   1.10.6

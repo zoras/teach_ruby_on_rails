@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Blog</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'application', 'https://fonts.googleapis.com/css?family=Raleway:400,700' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div id="sidebar">
+    <div id="logo">
+      <%= link_to root_path do %>
+        <%= image_tag "logo.png" %>
+      <% end %>
+    </div>
+
+    <ul>
+      <li class="category">Website</li>
+      <li><%= link_to "Blog", root_path %></li>
+      <li><%= link_to "About", about_path %></li>
+    </ul>
+
+    <ul>
+      <li class="category">Social</li>
+      <li><a href="https://twitter.com/zoraslapen">Twitter</a></li>
+      <li><a href="https://github.com/zoras">Github</a></li>
+      <li><a href="https://zoras.me">Site</a></li>
+      <li><a href="mailto:hello@zoras.me">Email</a></li>
+    </ul>
+
+    <% if !user_signed_in? %>
+      <p class="sign_in"><%= link_to "Admin Login", new_user_session_path %></p>
+    <% end %>
+  </div>
+
+  <div id="main_content">
+    <div id="header">
+      <% if current_page?(root_path) %>
+        <p>All Articles</p>
+      <% elsif current_page?(about_path) %>
+        <p>About</p>
+      <% else %>
+        <%= link_to "Back to All Articles", root_path %>
+      <% end %>
+
+      <% if user_signed_in? %>
+        <div class="buttons">
+          <button class="button"><%= link_to "New Article", new_article_path %></button>
+          <button class="button"><%= link_to "Log out", destroy_user_session_path, method: :delete %></button>
+        </div>
+      <% end %>
+    </div>
+    
+    <%= yield %>
+  </div>
+
+</body>
+</html>
