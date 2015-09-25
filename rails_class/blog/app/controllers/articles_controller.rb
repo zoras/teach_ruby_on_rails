@@ -2,10 +2,16 @@ class ArticlesController < ApplicationController
 
   # http_basic_authenticate_with name: "dhh", password: "secret", except: [:index, :show]
 
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show, :draft]
+  # protect_from_forgery except: [:show]
 
   def index
     @articles = Article.all
+  end
+
+  def draft
+    # render 'show', params: {id: params[:article_id]}
+    redirect_to "/articles/#{params[:article_id]}/show"#, params: {id: params[:article_id]}
   end
 
   def new
@@ -24,6 +30,15 @@ class ArticlesController < ApplicationController
 
   def show
     @article = Article.find(params[:id])
+    # @article ||= Article.find(params[:article_id])
+    # respond_to do |format|
+    #   # format.html {render html: @article}
+    #   format.json {render json: @article}
+    #   format.xml {render xml: @article}
+    #   format.js {render xml: @article}
+    # end
+    # render js: "alert('Hello Rails');", 
+    # render text: 'raw'#, status: 301
   end
 
   def edit
